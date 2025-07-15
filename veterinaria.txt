@@ -1,0 +1,7 @@
+veterinaria/
+├── database.php    # Conexión a la DB
+├── add_owner.php   # Formulario para dueños
+├── list_owners.php # Listar dueños
+├── add_pet.php     # Formulario para mascotas
+├── list_pets.php   # Listar mascotas
+└── index.php       # Página principal
