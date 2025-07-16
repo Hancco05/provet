@@ -1,7 +1,8 @@
 veterinaria/
-├── auth/
-│   ├── login.php       # Formulario de inicio de sesión
-│   └── logout.php      # Cerrar sesión
 ├── includes/
-│   └── auth_check.php  # Verificar sesión activa
-└── (archivos existentes)
+│   ├── auth_check.php       # Verificar sesión (ya existe)
+│   └── role_check.php       # Verificar rol de usuario
+├── admin/
+│   └── dashboard.php        # Panel solo para administradores
+└── vet/
+    └── dashboard.php        # Panel para veterinarios
