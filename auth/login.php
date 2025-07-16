@@ -57,6 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <input type="password" name="password" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Ingresar</button>
+                            <div class="text-center mt-3">
+                                <?php if (!isset($_SESSION['user_id'])): ?>
+                                    <a href="register.php" class="btn btn-outline-secondary">Registrar nueva cuenta</a>
+                                <?php endif; ?>
+                            </div>
                         </form>
                     </div>
                 </div>
