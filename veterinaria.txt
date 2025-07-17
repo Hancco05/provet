@@ -6,3 +6,5 @@ veterinaria/
 │   └── dashboard.php        # Panel solo para administradores
 └── vet/
     └── dashboard.php        # Panel para veterinarios
+
+    continuar mañana
