@@ -37,6 +37,9 @@
                 }
                 ?>
             </tbody>
+            echo "<a href='edit_pet.php?id={$row['id']}' class='btn btn-sm btn-warning'>Editar</a>";
+
+            <a href='pets/edit_pet.php?id={$row['id']}'>Editar</a>
         </table>
     </div>
 </body>

@@ -1,10 +1,16 @@
 veterinaria/
 ├── includes/
-│   ├── auth_check.php       # Verificar sesión (ya existe)
-│   └── role_check.php       # Verificar rol de usuario
+│   ├── auth_check.php
+│   └── role_check.php
 ├── admin/
-│   └── dashboard.php        # Panel solo para administradores
-└── vet/
-    └── dashboard.php        # Panel para veterinarios
-
-    continuar mañana1
+│   └── dashboard.php
+├── vet/
+│   └── dashboard.php
+├── pets/                   # ¡Nueva carpeta!
+│   ├── edit_pet.php
+│   ├── list_pets.php
+│   └── add_pet.php         # Si no existe, lo creamos después
+├── auth/
+│   ├── login.php
+│   └── logout.php
+└── database.php
