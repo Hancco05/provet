@@ -7,4 +7,4 @@ veterinaria/
 └── vet/
     └── dashboard.php        # Panel para veterinarios
 
-    continuar mañana
+    continuar mañana1
