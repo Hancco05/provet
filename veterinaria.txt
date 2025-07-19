@@ -14,3 +14,13 @@ veterinaria/
 │   ├── login.php
 │   └── logout.php
 └── database.php
+
+
+veterinaria/
+├── medical/
+│   ├── vaccines/          # Módulo de vacunas
+│   │   ├── add.php       # Agregar vacuna
+│   │   ├── list.php      # Listar por mascota
+│   │   └── pet_list.php  # Historial médico
+└── pets/
+    └── medical.php       # Enlace rápido desde ficha mascota
