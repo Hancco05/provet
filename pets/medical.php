@@ -2,15 +2,27 @@
 require_once "../includes/auth_check.php";
 require_once "../database.php";
 
+// Verifica que el ID de mascota exista
 $pet_id = $_GET['id'] ?? null;
-if (!$pet_id) {
-    header("Location: list_pets.php?error=ID no especificado");
+if (!$pet_id || !is_numeric($pet_id)) {
+    header("Location: list_pets.php?error=ID de mascota no válido");
     exit();
 }
 
-// Obtener datos mascota
-$pet = $conn->query("SELECT * FROM pets WHERE id = $pet_id")->fetch_assoc();
-$owner = $conn->query("SELECT name FROM owners WHERE id = {$pet['owner_id']}")->fetch_assoc();
+// Consulta segura con prepared statements
+$stmt = $conn->prepare("SELECT pets.*, owners.name AS owner_name 
+                       FROM pets 
+                       JOIN owners ON pets.owner_id = owners.id
+                       WHERE pets.id = ?");
+$stmt->bind_param("i", $pet_id);
+$stmt->execute();
+$pet = $stmt->get_result()->fetch_assoc();
+
+// Verifica que la mascota exista
+if (!$pet) {
+    header("Location: list_pets.php?error=Mascota no encontrada");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,26 +47,31 @@ $owner = $conn->query("SELECT name FROM owners WHERE id = {$pet['owner_id']}")->
         <div class="card mb-4">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-2 text-center">
-                        <?php if ($pet['photo_path']): ?>
-                            <img src="../<?= $pet['photo_path'] ?>" 
-                                 class="img-thumbnail" 
-                                 style="width:100px;height:100px;object-fit:cover">
-                        <?php else: ?>
-                            <div class="bg-light d-flex align-items-center justify-content-center" 
-                                 style="width:100px;height:100px;">
-                                <i class="bi bi-camera" style="font-size:2rem"></i>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="col-md-10">
-                        <h4><?= htmlspecialchars($pet['name']) ?></h4>
-                        <p class="mb-1"><strong>Especie:</strong> <?= htmlspecialchars($pet['species']) ?></p>
-                        <p class="mb-1"><strong>Dueño:</strong> <?= htmlspecialchars($owner['name']) ?></p>
-                        <?php if ($pet['breed']): ?>
-                            <p class="mb-1"><strong>Raza:</strong> <?= htmlspecialchars($pet['breed']) ?></p>
-                        <?php endif; ?>
-                    </div>
+                    <!-- Foto de la mascota - Versión corregida -->
+                <div class="col-md-2 text-center">
+                    <?php if (!empty($pet['photo_path'])): ?>
+                        <img src="../<?= htmlspecialchars($pet['photo_path']) ?>" 
+                            class="img-thumbnail" 
+                            style="width:100px;height:100px;object-fit:cover"
+                            alt="Foto de <?= htmlspecialchars($pet['name']) ?>">
+                    <?php else: ?>
+                        <div class="bg-light d-flex align-items-center justify-content-center" 
+                            style="width:100px;height:100px;border-radius:50%;">
+                            <i class="bi bi-camera" style="font-size:2rem;color:#6c757d;"></i>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                    <div class="container mt-5">
+        <!-- Encabezado con datos de la mascota -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="bi bi-heart-pulse"></i> Historial de <?= htmlspecialchars($pet['name']) ?>
+                <small class="text-muted">Dueño: <?= htmlspecialchars($pet['owner_name']) ?></small>
+            </h2>
+            <a href="list_pets.php" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
                 </div>
             </div>
         </div>
