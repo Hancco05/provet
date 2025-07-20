@@ -142,6 +142,42 @@ $owner = $conn->query("SELECT name FROM owners WHERE id = {$pet['owner_id']}")->
                     Módulo en desarrollo - Próximamente
                 </div>
             </div>
+            <!-- Cambiar el alert por este contenido -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <?php
+                    $treatments = $conn->query("SELECT * FROM treatments 
+                                            WHERE pet_id = $pet_id 
+                                            ORDER BY start_date DESC 
+                                            LIMIT 3");
+                    if ($treatments->num_rows > 0): ?>
+                        <tbody>
+                            <?php while ($t = $treatments->fetch_assoc()): ?>
+                            <tr>
+                                <td>
+                                    <span class="badge bg-<?= 
+                                        $t['type'] == 'medicación' ? 'primary' : 
+                                        ($t['type'] == 'cirugía' ? 'danger' : 'warning') 
+                                    ?>">
+                                        <?= ucfirst($t['type']) ?>
+                                    </span>
+                                </td>
+                                <td><?= date('d/m/Y', strtotime($t['start_date'])) ?></td>
+                                <td><?= substr($t['description'], 0, 30) ?>...</td>
+                                <td>
+                                    <a href="../medical/treatments/list.php?pet_id=<?= $pet_id ?>" 
+                                    class="btn btn-sm btn-outline-info">
+                                        Ver todos
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    <?php else: ?>
+                        <div class="alert alert-warning">No hay tratamientos registrados</div>
+                    <?php endif; ?>
+                </table>
+            </div>
         </div>
     </div>
 
