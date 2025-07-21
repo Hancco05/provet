@@ -24,3 +24,5 @@ veterinaria/
 │   │   └── pet_list.php  # Historial médico
 └── pets/
     └── medical.php       # Enlace rápido desde ficha mascota
+
+    hoy
