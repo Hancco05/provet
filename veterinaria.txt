@@ -25,4 +25,3 @@ veterinaria/
 └── pets/
     └── medical.php       # Enlace rápido desde ficha mascota
 
-    hoy111
