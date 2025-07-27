@@ -25,4 +25,4 @@ veterinaria/
 └── pets/
     └── medical.php       # Enlace rápido desde ficha mascota
 
-refresh1 mañana1
+refresh1 mañana11
